@@ -17,6 +17,21 @@
     return result;
 }
 
++ (instancetype)dataAttributeWithObject:(id)object
+{
+    XKKeychainDataAttribute *result = [XKKeychainDataAttribute new];
+    if ([object isKindOfClass:[NSData class]]) {
+        result.dataValue = object;
+    } else if ([object isKindOfClass:[NSString class]]) {
+        result.stringValue = object;
+    } else {
+        result.transformableValue = object;
+    }
+    return result;
+}
+
+#pragma mark - Properties
+
 - (NSString *)stringValue
 {
     if (self.dataValue) {
@@ -49,7 +64,13 @@
 - (id)transformableValue
 {
     if (self.dataValue) {
-        return [NSKeyedUnarchiver unarchiveObjectWithData:self.dataValue];
+        @try {
+            return [NSKeyedUnarchiver unarchiveObjectWithData:self.dataValue];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Attempted to unarchive but couldn't: %@", exception);
+            return nil;
+        }
     } else {
         return nil;
     }
@@ -57,7 +78,33 @@
 
 - (void)setTransformableValue:(id)transformable
 {
-    self.dataValue = [NSKeyedArchiver archivedDataWithRootObject:transformable];
+    if (transformable) {
+        self.dataValue = [NSKeyedArchiver archivedDataWithRootObject:transformable];
+    } else {
+        self.dataValue = nil;
+    }
+}
+
+#pragma mark - Public
+
+- (void)setObject:(id)anObject forKey:(id<NSCopying>)aKey
+{
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:self.dictionaryValue];
+    [dictionary setObject:anObject forKey:aKey];
+    self.dictionaryValue = dictionary;
+}
+
+- (void)removeObjectForKey:(id)aKey
+{
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:self.dictionaryValue];
+    [dictionary removeObjectForKey:aKey];
+    self.dictionaryValue = dictionary;
+}
+
+- (id)objectForKey:(id)aKey
+{
+    NSDictionary *dictionary = self.dictionaryValue;
+    return [dictionary objectForKey:aKey];
 }
 
 @end

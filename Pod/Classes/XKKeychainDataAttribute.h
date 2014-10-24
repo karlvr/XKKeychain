@@ -14,10 +14,15 @@
 @interface XKKeychainDataAttribute : NSObject
 
 + (instancetype)dataAttributeWithData:(NSData *)data;
++ (instancetype)dataAttributeWithObject:(id)object;
 
 @property (strong, nonatomic) NSData *dataValue;
 @property (strong, nonatomic) NSString *stringValue;
 @property (strong, nonatomic) NSDictionary *dictionaryValue;
 @property (strong, nonatomic) id transformableValue;
+
+- (void)setObject:(id)anObject forKey:(id<NSCopying>)aKey;
+- (void)removeObjectForKey:(id)aKey;
+- (id)objectForKey:(id)aKey;
 
 @end
