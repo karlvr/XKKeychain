@@ -138,6 +138,9 @@
 {
     self = [super init];
     if (self) {
+        self.accessible = (__bridge CFTypeRef)(attributes[(__bridge NSString *)kSecAttrAccessible]);
+        self.accessGroup = attributes[(__bridge NSString *)kSecAttrAccessGroup];
+        
         _creationDate = attributes[(__bridge NSString *)kSecAttrCreationDate];
         _modificationDate = attributes[(__bridge NSString *)kSecAttrModificationDate];
         _descriptionText = attributes[(__bridge NSString *)kSecAttrDescription];
@@ -149,11 +152,11 @@
         _negative = attributes[(__bridge NSString *)kSecAttrIsNegative];
         _account = attributes[(__bridge NSString *)kSecAttrAccount];
         _service = attributes[(__bridge NSString *)kSecAttrService];
-        _generic = [XKKeychainDataAttribute dataAttributeWithData:attributes[(__bridge NSString *)kSecAttrGeneric]];
+        _generic = [XKKeychainDataAttribute dataAttributeWithObject:attributes[(__bridge NSString *)kSecAttrGeneric]];
         
         NSData *secretData = attributes[(__bridge NSString *)kSecValueData];
         if (secretData) {
-            _secret = [XKKeychainDataAttribute dataAttributeWithData:secretData];
+            _secret = [XKKeychainDataAttribute dataAttributeWithObject:secretData];
         }
     }
     return self;
@@ -272,6 +275,12 @@
 - (NSDictionary *)saveDictionary
 {
     NSMutableDictionary *result = [XKKeychainGenericPasswordItem queryDictionaryForService:self.service account:self.account];
+    if (self.accessible) {
+        [result setObject:self.accessible forKey:(__bridge NSString *)kSecAttrAccessible];
+    }
+    if (self.accessGroup) {
+        [result setObject:self.accessGroup forKey:(__bridge NSString *)kSecAttrAccessGroup];
+    }
     if (_descriptionText) {
         [result setObject:_descriptionText forKey:(__bridge NSString *)kSecAttrDescription];
     }
