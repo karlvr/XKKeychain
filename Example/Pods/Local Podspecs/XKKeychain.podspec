@@ -12,12 +12,11 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "A completely flexible keychain wrapper for generic password keychain items."
   s.description      = <<-DESC
-                       An optional longer description of XKKeychain
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       XKKeychain provides a flexible and generic Objective C wrapper for accessing the keychain.
+                       It provides access to all of the possible attributes, so that it should suit all applications,
+                       while still being simple and convenient to use.
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/XKKeychain"
+  s.homepage         = "https://github.com/karlvr/XKKeychain"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Karl von Randow" => "karl@xk72.com" }
