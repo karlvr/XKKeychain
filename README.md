@@ -1,6 +1,6 @@
 # XKKeychain
 
-[![CI Status](http://img.shields.io/travis/Karl von Randow/XKKeychain.svg?style=flat)](https://travis-ci.org/Karl von Randow/XKKeychain)
+[![CI Status](http://img.shields.io/travis/karlvr/XKKeychain.svg?style=flat)](https://travis-ci.org/karlvr/XKKeychain)
 [![Version](https://img.shields.io/cocoapods/v/XKKeychain.svg?style=flat)](http://cocoadocs.org/docsets/XKKeychain)
 [![License](https://img.shields.io/cocoapods/l/XKKeychain.svg?style=flat)](http://cocoadocs.org/docsets/XKKeychain)
 [![Platform](https://img.shields.io/cocoapods/p/XKKeychain.svg?style=flat)](http://cocoadocs.org/docsets/XKKeychain)
