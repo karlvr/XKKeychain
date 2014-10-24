@@ -143,7 +143,7 @@
         if (status == errSecSuccess) {
             *error = nil;
         } else {
-            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Keychain error #%i", status]};
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Keychain error #%i", (int)status]};
             *error = [NSError errorWithDomain:@"XKKeychainHelper" code:status userInfo:userInfo];
         }
     }
