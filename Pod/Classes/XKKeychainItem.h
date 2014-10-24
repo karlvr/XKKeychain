@@ -13,4 +13,7 @@
 @property (nonatomic) CFTypeRef accessible;
 @property (strong, nonatomic) NSString *accessGroup;
 
+- (BOOL)saveWithError:(NSError **)error;
+- (BOOL)deleteWithError:(NSError **)error;
+
 @end

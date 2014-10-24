@@ -10,4 +10,14 @@
 
 @implementation XKKeychainItem
 
+- (BOOL)saveWithError:(NSError **)error
+{
+    return NO;
+}
+
+- (BOOL)deleteWithError:(NSError **)error
+{
+    return NO;
+}
+
 @end

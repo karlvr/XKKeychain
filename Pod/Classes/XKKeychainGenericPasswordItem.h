@@ -31,7 +31,4 @@
 @property (readonly, strong, nonatomic) XKKeychainDataAttribute *generic;
 @property (readonly, strong, nonatomic) XKKeychainDataAttribute *secret;
 
-- (BOOL)saveWithError:(NSError **)error;
-- (BOOL)deleteWithError:(NSError **)error;
-
 @end
