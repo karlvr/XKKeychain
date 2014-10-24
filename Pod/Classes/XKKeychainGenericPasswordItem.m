@@ -194,7 +194,6 @@
     [self deleteWithError:nil];
     
     NSDictionary *saveDictionary = [self saveDictionary];
-    NSLog(@"Save dictionary: %@", saveDictionary);
     
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)saveDictionary, NULL);
     if (status == errSecSuccess) {
