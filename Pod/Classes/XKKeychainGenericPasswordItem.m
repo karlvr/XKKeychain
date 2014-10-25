@@ -182,7 +182,7 @@
             *error = nil;
         } else {
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Keychain error #%i", (int)status]};
-            *error = [NSError errorWithDomain:@"XKKeychainHelper" code:status userInfo:userInfo];
+            *error = [NSError errorWithDomain:@"XKKeychain" code:status userInfo:userInfo];
         }
     }
 }
