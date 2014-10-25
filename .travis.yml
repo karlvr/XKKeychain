@@ -2,5 +2,11 @@
 
 language: objective-c
 # before_install: cd Example && pod install && cd -
+
+# Workaround for outdated xctool on Travis: https://github.com/travis-ci/travis-ci/issues/2836
+before_install:
+  - brew update
+  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+
 script:
 - xctool test -workspace Example/XKKeychain.xcworkspace -scheme XKKeychain -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
