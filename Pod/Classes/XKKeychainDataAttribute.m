@@ -63,7 +63,7 @@
 
 - (id)transformableValue
 {
-    if (self.dataValue) {
+    if (self.dataValue.length > 0) {
         @try {
             return [NSKeyedUnarchiver unarchiveObjectWithData:self.dataValue];
         }
