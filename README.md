@@ -18,6 +18,11 @@ it, simply add the following line to your Podfile:
 
     pod "XKKeychain"
 
+It actually isn't available through CocoaPods yet, so in the meantime use:
+
+    pod 'XKKeychain', :git => 'https://github.com/karlvr/XKKeychain.git'
+
+
 ## Usage
 
 ```objc
