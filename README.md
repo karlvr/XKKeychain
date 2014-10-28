@@ -36,10 +36,14 @@ Each keychain item is uniquely identified by its type, the service name and the 
 The service name generally identifies the service, such as your app or a third party service. The account name generally identifies the account
 on that service that the credentials are stored for.
 
+The keychain item contains a `secret`. This is where you store the information that you want to protect. XKKeychain provides access to the secret
+as `NSData`, `NSString`, `NSDictionary`, or `id<NSCoding>`. You may also simply use `objectForKey:` or keyed subscripting on the secret. Just be
+sure to use the same method to retrieve the secret as you used to store it, as under the hood the secret is an `NSData`.
+
 ```objc
 NSString * const serviceName = @"your app name, or the service you're accessing, e.g. com.twitter";
 NSString * const accountName = @"the account name the credential is for, e.g. avon";
-XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:serviceName account:account error:&error];
+XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:serviceName account:accountName error:&error];
 if (error) {
 	NSLog(@"Failed to access the keychain: %@", [error localizedDescription]);
 }
@@ -81,7 +85,7 @@ NSArray *items = [XKKeychainGenericPasswordItem itemsForService:serviceName erro
 ```objc
 XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem new];
 item.service = serviceName;
-item.account = account;
+item.account = accountName;
 item.accessible = kSecAttrAccessibleAfterFirstUnlock;
 item.secret.stringValue = @"top secret";
 item.generic[@"aKey"] = @"a non private value";
