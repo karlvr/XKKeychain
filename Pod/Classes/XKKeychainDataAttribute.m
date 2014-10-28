@@ -107,4 +107,14 @@
     return [dictionary objectForKey:aKey];
 }
 
+- (id)objectForKeyedSubscript:(id)key
+{
+    return [self objectForKey:key];
+}
+
+- (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)aKey
+{
+    [self setObject:object forKey:aKey];
+}
+
 @end

@@ -110,6 +110,28 @@ describe(@"crud", ^{
         expect(item.generic.dictionaryValue[@"number"]).to.equal(@1337);
     });
     
+    it(@"can use keyed subscript on generic", ^{
+        NSError *error = nil;
+        
+        XKKeychainGenericPasswordItem *createItem = [XKKeychainGenericPasswordItem new];
+        createItem.service = @"Test";
+        createItem.account = @"Test Account with generic data subscripts";
+        createItem.generic[@"name"] = @"Subscript success";
+        createItem.generic[@"number"] = @1337;
+        BOOL created = [createItem saveWithError:&error];
+        
+        expect(created).to.beTruthy();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:@"Test" account:@"Test Account with generic data subscripts" error:&error];
+        
+        expect(item).toNot.beNil();
+        expect(error).to.beNil();
+        
+        expect(item.generic[@"name"]).to.equal(@"Subscript success");
+        expect(item.generic[@"number"]).to.equal(@1337);
+    });
+    
     it(@"can store various attributes", ^{
         NSError *error = nil;
         

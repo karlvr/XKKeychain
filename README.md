@@ -52,7 +52,7 @@ You can access the secret as different types. You should access it as the same t
 ```objc
 NSData *secretData = item.secret.dataValue;
 NSDictionary *secretDictionary = item.secret.dictionaryValue;
-id secretValue = [item.secret objectForKey:@"aKey"];
+id secretValue = item.secret[@"aKey"];
 id secret = item.secret.transformableValue; /* Using NSCoding */
 ```
 
@@ -63,7 +63,7 @@ supports the same different value types as secrets.
 NSString *myString = item.generic.stringValue;
 NSData *myData = item.generic.dataValue;
 NSDictionary *myDictionary = item.generic.dictionaryValue;
-id myValue = [item.generic objectForKey:@"aKey"];
+id myValue = item.generic[@"aKey"];
 id myObject = item.generic.transformableValue; /* Using NSCoding */
 ```
 
@@ -84,7 +84,7 @@ item.service = serviceName;
 item.account = account;
 item.accessible = kSecAttrAccessibleAfterFirstUnlock;
 item.secret.stringValue = @"top secret";
-[item.generic setObject:@"a non private value" forKey:@"aKey"];
+item.generic[@"aKey"] = @"a non private value";
 
 NSError *error = nil;
 if (![item saveWithError:&error]) {
