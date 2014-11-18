@@ -175,7 +175,7 @@
     return query;
 }
 
-+ (void)error:(NSError **)error forStatus:(OSStatus)status
++ (BOOL)error:(NSError **)error forStatus:(OSStatus)status
 {
     if (error) {
         if (status == errSecSuccess) {
@@ -184,6 +184,9 @@
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Keychain error #%i", (int)status]};
             *error = [NSError errorWithDomain:@"XKKeychain" code:status userInfo:userInfo];
         }
+        return YES;
+    } else {
+        return NO;
     }
 }
 
