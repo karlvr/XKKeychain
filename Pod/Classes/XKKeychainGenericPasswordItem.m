@@ -89,11 +89,9 @@
     return result;
 }
 
-- (BOOL)removeItemsForService:(NSString *)service error:(NSError **)error
++ (BOOL)removeItemsForService:(NSString *)service error:(NSError **)error
 {
     NSMutableDictionary *query = [XKKeychainGenericPasswordItem queryDictionaryForService:service account:nil];
-    
-    [query setObject:(__bridge NSString *)kSecMatchLimitAll forKey:(__bridge NSString *)kSecMatchLimit];
     
     OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
     if (status == errSecSuccess || status == errSecItemNotFound) {
@@ -107,7 +105,7 @@
     }
 }
 
-- (BOOL)removeItemsForService:(NSString *)service accountPrefix:(NSString *)accountPrefix error:(NSError **)error
++ (BOOL)removeItemsForService:(NSString *)service accountPrefix:(NSString *)accountPrefix error:(NSError **)error
 {
     NSArray *items = [XKKeychainGenericPasswordItem itemsForService:service accountPrefix:accountPrefix error:error];
     if (!items) {

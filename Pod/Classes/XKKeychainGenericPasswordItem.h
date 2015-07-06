@@ -16,8 +16,8 @@
 + (NSArray *)itemsForService:(NSString *)service error:(NSError **)error;
 + (NSArray *)itemsForService:(NSString *)service accountPrefix:(NSString *)accountPrefix error:(NSError **)error;
 
-- (BOOL)removeItemsForService:(NSString *)service error:(NSError **)error;
-- (BOOL)removeItemsForService:(NSString *)service accountPrefix:(NSString *)accountPrefix error:(NSError **)error;
++ (BOOL)removeItemsForService:(NSString *)service error:(NSError **)error;
++ (BOOL)removeItemsForService:(NSString *)service accountPrefix:(NSString *)accountPrefix error:(NSError **)error;
 
 @property (readonly, strong, nonatomic) NSDate *creationDate;
 @property (readonly, strong, nonatomic) NSDate *modificationDate;

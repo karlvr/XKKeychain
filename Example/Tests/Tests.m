@@ -36,6 +36,33 @@ describe(@"crud", ^{
         expect(error).to.beNil();
     });
     
+    it(@"can delete created items", ^{
+        NSError *error = nil;
+        
+        XKKeychainGenericPasswordItem *createItem = [XKKeychainGenericPasswordItem new];
+        createItem.service = @"Test";
+        createItem.account = @"Test Account";
+        BOOL created = [createItem saveWithError:&error];
+        
+        expect(created).to.beTruthy();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:@"Test" account:@"Test Account" error:&error];
+        
+        expect(item).toNot.beNil();
+        expect(error).to.beNil();
+        
+        BOOL deleted = [item deleteWithError:&error];
+        
+        expect(deleted).to.beTruthy();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain = [XKKeychainGenericPasswordItem itemForService:@"Test" account:@"Test Account" error:&error];
+        
+        expect(itemAgain).to.beNil();
+        expect(error).to.beNil();
+    });
+    
     it(@"can store generic data", ^{
         NSError *error = nil;
         
@@ -293,7 +320,7 @@ describe(@"crud", ^{
 
 describe(@"bulk", ^{
     
-    beforeAll(^{
+    beforeEach(^{
         NSError *error = nil;
         BOOL created;
         
@@ -342,6 +369,63 @@ describe(@"bulk", ^{
         } else {
             expect(NO).to.equal(YES);
         }
+    });
+    
+    it(@"can bulk delete created items", ^{
+        NSError *error = nil;
+        
+        BOOL deleted = [XKKeychainGenericPasswordItem removeItemsForService:@"Test Bulk" accountPrefix:@"Test Account" error:&error];
+        
+        expect(deleted).to.beTruthy();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain = [XKKeychainGenericPasswordItem itemForService:@"Test Bulk" account:@"Test Account 1" error:&error];
+        
+        expect(itemAgain).to.beNil();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain2 = [XKKeychainGenericPasswordItem itemForService:@"Test Bulk" account:@"Test Account 2" error:&error];
+        
+        expect(itemAgain2).to.beNil();
+        expect(error).to.beNil();
+    });
+    
+    it(@"can selectively bulk delete created items", ^{
+        NSError *error = nil;
+        
+        BOOL deleted = [XKKeychainGenericPasswordItem removeItemsForService:@"Test Bulk" accountPrefix:@"Test Account 1" error:&error];
+        
+        expect(deleted).to.beTruthy();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain = [XKKeychainGenericPasswordItem itemForService:@"Test Bulk" account:@"Test Account 1" error:&error];
+        
+        expect(itemAgain).to.beNil();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain2 = [XKKeychainGenericPasswordItem itemForService:@"Test Bulk" account:@"Test Account 2" error:&error];
+        
+        expect(itemAgain2).toNot.beNil();
+        expect(error).to.beNil();
+    });
+    
+    it(@"can selectively bulk delete created items", ^{
+        NSError *error = nil;
+        
+        BOOL deleted = [XKKeychainGenericPasswordItem removeItemsForService:@"Test Bulk" error:&error];
+        
+        expect(deleted).to.beTruthy();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain = [XKKeychainGenericPasswordItem itemForService:@"Test Bulk" account:@"Test Account 1" error:&error];
+        
+        expect(itemAgain).to.beNil();
+        expect(error).to.beNil();
+        
+        XKKeychainGenericPasswordItem *itemAgain2 = [XKKeychainGenericPasswordItem itemForService:@"Test Bulk" account:@"Test Account 2" error:&error];
+        
+        expect(itemAgain2).to.beNil();
+        expect(error).to.beNil();
     });
     
 });
