@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "XKKeychain"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "A completely flexible keychain wrapper for generic password keychain items."
   s.description      = <<-DESC
                        XKKeychain provides a flexible and generic Objective C wrapper for accessing the keychain.
@@ -23,7 +23,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/karlvr/XKKeychain.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/avon'
 
-  s.platform     = :ios, '7.0'
+  s.ios.deployment_target = '7.0'
+  s.tvos.deployment_target = '9.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
