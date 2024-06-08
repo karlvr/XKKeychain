@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "XKKeychain"
-  s.version          = "1.0.1"
+  s.version          = "1.0.2"
   s.summary          = "A completely flexible keychain wrapper for generic password keychain items."
   s.description      = <<-DESC
                        XKKeychain provides a flexible and generic Objective C wrapper for accessing the keychain.
